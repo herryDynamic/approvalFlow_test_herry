@@ -26,6 +26,15 @@ const router = new Router({
             meta: {
                 title: "test"
             }
+        },
+        {
+            path: "/approver",
+            name: "approver",
+            component: () =>
+                import("./views/admin/approver"), // url地址
+            meta: {
+                title: "approver"
+            }
         }
     ] // (缩写) 相当于 routes: routes
 })
