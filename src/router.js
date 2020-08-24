@@ -10,7 +10,7 @@ const router = new Router({
     base: "/lsa",
     routes: [
         {
-            path: "/",
+            path: "/lsa",
             name: "lsa",
             component: () =>
                 import("./views/login"), // url地址
@@ -28,7 +28,7 @@ const router = new Router({
             }
         },
         {
-            path: "/approver",
+            path: "/",
             name: "approver",
             component: () =>
                 import("./views/admin/approver"), // url地址

@@ -28,13 +28,17 @@
 
     <!-- 独立集合：组件库； ref访问到此组件 -->
     <section class="page__content">
+      <!-- 基础设置 -->
       <BasicSetting
         v-show="activeStep === 'basicSetting'"
         tabName="basicSetting"
         ref="basicSetting"
       />
+      <!-- 表单设计 -->
       <DynamicForm v-show="activeStep === 'formDesign'" tabName="formDesign" ref="formDesign" />
+      <!-- 流程设计 -->
       <Process v-show="activeStep === 'processDesign'" tabName="processDesign" ref="processDesign" />
+      <!-- 高级设置 -->
       <AdvancedSetting v-show="activeStep === 'advancedSetting'" ref="advancedSetting" />
     </section>
   </div>
