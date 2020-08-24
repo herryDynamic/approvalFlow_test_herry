@@ -345,7 +345,7 @@ export class NodeUtils {
  */
 export function getMockData () {
   let startNode = NodeUtils.createNode( "start" );
-  startNode.childNode = NodeUtils.createNode( "approver", startNode.nodeId )
+  startNode.checkNode = NodeUtils.createNode( "approver", startNode.nodeId )
   return startNode;
 }
 

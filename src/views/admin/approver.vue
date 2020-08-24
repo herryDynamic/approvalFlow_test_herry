@@ -1,6 +1,7 @@
 <template>
   <div class="page">
     <header class="page__header">
+      <!-- 返回事件 -->
       <div class="page-actions">
         <div style="border-right:1px solid #c5c5c5;cursor: pointer;" @click="exit">
           <i class="el-icon-arrow-left"></i>
@@ -8,6 +9,7 @@
         <div>{{ title }}</div>
       </div>
       <div class="step-tab">
+        <!-- 抬头：切换组件事件并循环 -->
         <div
           v-for="(item, index) in steps"
           :key="index"
@@ -15,6 +17,7 @@
           :class="[activeStep==item.key?'active':'']"
           @click="changeSteps(item)"
         >
+          <!-- 抬头：每个组件名字 -->
           <span class="step-index">{{index+1}}</span>
           {{item.label}}
         </div>
@@ -23,6 +26,8 @@
           :style="{transform: `translateX(${steps.findIndex(t => t.key === activeStep) * 100}%)`}"
         ></div>
       </div>
+
+      <!-- 发布事件 -->
       <el-button size="small" class="publish-btn" @click="publish">发布</el-button>
     </header>
 
@@ -45,7 +50,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+// @ 表示 /src别名
 import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
 import BasicSetting from "@/components/BasicSettingForm";
@@ -68,6 +73,7 @@ export default {
   data() {
     return {
       activeStep: "basicSetting", // 激活的步骤面板
+      // 抬头组件显示内容
       steps: [
         { label: "基础设置", key: "basicSetting" },
         { label: "表单设计", key: "formDesign" },
@@ -85,9 +91,12 @@ export default {
     next();
   },
   methods: {
+    // 控制显示哪个组件页面
     changeSteps(item) {
       this.activeStep = item.key;
     },
+
+    // 发布按钮
     publish() {
       const getCmpData = (name) => this.$refs[name].getData();
       // basicSetting  formDesign processDesign 返回的是Promise 因为要做校验
@@ -110,9 +119,13 @@ export default {
           err.msg && this.$message.warning(err.msg);
         });
     },
+
+    // 返回后端保存数据
     sendServer(param) {
       console.log(param);
     },
+
+    // 抬头左侧返回按钮
     exit() {
       this.$confirm("离开此页面您得修改将会丢失, 是否继续?", "提示", {
         confirmButtonText: "确定",

@@ -1,3 +1,9 @@
+/*
+ * @Author: herry 
+ * @Date: 2020-08-24 16:00:28 
+ * @Last Modified by: herry
+ * @Last Modified time: 2020-08-24 16:11:33
+ */
 export default {
   start: {
     type: "start",

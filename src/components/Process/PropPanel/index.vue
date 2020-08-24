@@ -197,7 +197,7 @@
   </el-drawer>
 </template>
 <script>
-import Clickoutside from "element-ui/src/utils/clickoutside";
+import Clickoutside from "element-ui/src/utils/clickoutside"; // elementjs中原生方法
 import NumInput from "./NumInput";
 import radioGroup from "./radioGroup";
 import SingleSelect from "./SingleSelect";

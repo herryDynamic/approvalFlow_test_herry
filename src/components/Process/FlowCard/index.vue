@@ -1,9 +1,9 @@
 <script>
 import { NodeUtils } from "./util.js";
-const isCondition = data => data.type === "condition";
-const notEmptyArray = arr => Array.isArray(arr) && arr.length > 0;
-const hasBranch = data => notEmptyArray(data.conditionNodes);
-const stopPro = ev => ev.stopPropagation();
+const isCondition = (data) => data.type === "condition";
+const notEmptyArray = (arr) => Array.isArray(arr) && arr.length > 0;
+const hasBranch = (data) => notEmptyArray(data.conditionNodes);
+const stopPro = (ev) => ev.stopPropagation();
 
 function createNormalCard(ctx, conf, h) {
   let isStartNode = conf.type === "start";
@@ -49,16 +49,16 @@ function createNormalCard(ctx, conf, h) {
 }
 
 let nodes = {
-  start: function(ctx, data, h) {
+  start: function (ctx, data, h) {
     return createNormalCard.call(ctx, ctx, data, h);
   },
-  approver: function(ctx, data, h) {
+  approver: function (ctx, data, h) {
     return createNormalCard.call(ctx, ctx, data, h);
   },
-  empty: function(ctx, data, h) {
+  empty: function (ctx, data, h) {
     return "";
   },
-  condition: function(ctx, conf, h) {
+  condition: function (ctx, conf, h) {
     return (
       <section
         class="flow-path-card condition"
@@ -94,7 +94,7 @@ let nodes = {
           </div>
         </header>
         <div class="body">
-          <pre class="text" >{conf.content}</pre>
+          <pre class="text">{conf.content}</pre>
         </div>
         <div
           class="icon-wrapper left"
@@ -120,7 +120,7 @@ let nodes = {
         </div>
       </section>
     );
-  }
+  },
 };
 
 function addNodeButton(ctx, data, h, isBranch = false) {
@@ -178,14 +178,22 @@ function NodeFactory(ctx, data, h) {
   if (!data) {
     return;
   }
-  const showErrorTip = ctx.verifyMode && NodeUtils.checkNode(data) === false
+  // 校验单个节点必填项完整性;
+  const showErrorTip = ctx.verifyMode && NodeUtils.checkNode(data) === false;
   let res = [],
     branchNode = "",
     selfNode = (
       <div class="node-wrap">
-        <div class={`node-wrap-box ${data.type} ${showErrorTip ? 'error' : ''}` }>
+        <div
+          class={`node-wrap-box ${data.type} ${showErrorTip ? "error" : ""}`}
+        >
           <el-tooltip content="未设置条件" placement="top" effect="dark">
-            <div class="error-tip" onClick={this.eventLancher.bind(ctx, "edit", data)}>!!!</div>
+            <div
+              class="error-tip"
+              onClick={this.eventLancher.bind(ctx, "edit", data)}
+            >
+              !!!
+            </div>
           </el-tooltip>
           {nodes[data.type].call(ctx, ctx, data, h)}
           {addNodeButton.call(ctx, ctx, data, h)}
@@ -206,7 +214,7 @@ function NodeFactory(ctx, data, h) {
             >
               添加条件
             </button>
-            {data.conditionNodes.map(d => NodeFactory.call(ctx, ctx, d, h))}
+            {data.conditionNodes.map((d) => NodeFactory.call(ctx, ctx, d, h))}
           </div>
         </div>
         {addNodeButton.call(ctx, ctx, data, h, true)}
@@ -240,11 +248,9 @@ export default {
   props: {
     data: { type: Object, required: true },
     // 点击发布时需要校验节点数据完整性 此时打开校验模式
-    verifyMode: {type: Boolean, default: true},
+    verifyMode: { type: Boolean, default: true },
   },
-  watch:{
-    
-  },
+  watch: {},
   methods: {
     /**
      *事件触发器 统筹本组件所有事件并转发到父组件中
@@ -254,7 +260,7 @@ export default {
       // args.slice(0,-1) vue 会注入MouseEvent到最后一个参数 去除事件对象
       let param = { event, args: args.slice(0, -1) };
       this.$emit("emits", param);
-    }
+    },
   },
   render(h) {
     return (
@@ -263,7 +269,7 @@ export default {
         {addEndNode(h)}
       </div>
     );
-  }
+  },
 };
 </script>
 

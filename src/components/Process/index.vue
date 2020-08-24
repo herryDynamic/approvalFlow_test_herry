@@ -1,30 +1,30 @@
 <script>
-import FlowCard from "./FlowCard/index.vue";
-import PropPanel from "./PropPanel/index.vue";
-import { NodeUtils, getMockData } from "./FlowCard/util.js";
+import FlowCard from "./FlowCard/index.vue"; // 制作节点s
+import PropPanel from "./PropPanel/index.vue"; // 右侧添加条件
+import { NodeUtils, getMockData } from "./FlowCard/util.js"; // 将模板添加到节点
 
 export default {
-  name: 'Process',
-  props:['tabName'],
+  name: "Process",
+  props: ["tabName"],
   data() {
     return {
       data: getMockData(), // 流程图数据
       scaleVal: 100, // 流程图缩放比例 100%
       step: 5, // 缩放步长
-      updateId: 0, // key值 用于模拟$forceUpdate
+      updateId: 0, // key值 用于模拟$forceUpdat
       activeData: null, // 被激活的流程卡片数据，用于属性面板编辑
       isProcessCmp: true,
-      verifyMode: false
+      verifyMode: false,
     };
   },
   methods: {
     // 给父级组件提供的获取流程数据得方法
-    getData(){
-      this.verifyMode = true
-      if(NodeUtils.checkAllNode(this.data)) {
-        return Promise.resolve({formData: this.data})
-      }else{
-        return Promise.reject({target: this.tabName})
+    getData() {
+      this.verifyMode = true;
+      if (NodeUtils.checkAllNode(this.data)) {
+        return Promise.resolve({ formData: this.data });
+      } else {
+        return Promise.reject({ target: this.tabName });
       }
     },
     /**
@@ -61,18 +61,18 @@ export default {
      * @param { Object } value - 被编辑的节点的properties属性对象
      */
     onPropEditConfirm(value, content) {
-      this.activeData.content = content || '请设置条件'
+      this.activeData.content = content || "请设置条件";
       let oldProp = this.activeData.properties;
       this.activeData.properties = value;
       // 修改优先级
       if (NodeUtils.isConditionNode(this.activeData)) {
-        value.priority !== oldProp.priority
+        value.priority !== oldProp.priority;
         NodeUtils.resortPrioByCNode(
           this.activeData,
           oldProp.priority,
           this.data
         );
-        NodeUtils.setDefaultCondition(this.activeData, this.data)
+        NodeUtils.setDefaultCondition(this.activeData, this.data);
       }
       this.onClosePanel();
       this.forceUpdate();
@@ -83,25 +83,29 @@ export default {
     onClosePanel() {
       this.activeData = null;
     },
-    doseUsedFormCondition ( formId ) {
-      let res = false
-      const loop = ( data, callback ) => {
-        if(res) return
-        if ( data && Array.isArray( data.conditionNodes ) ) {
-            const hasFinded = data.conditionNodes.some( c => c.properties.conditions.some( item => item.formId == formId))
-            if(hasFinded){
-              callback()
-            }else{
-              data.conditionNodes.forEach(d => d.childNode && loop( d.childNode, callback ))
-            }
+    doseUsedFormCondition(formId) {
+      let res = false;
+      const loop = (data, callback) => {
+        if (res) return;
+        if (data && Array.isArray(data.conditionNodes)) {
+          const hasFinded = data.conditionNodes.some((c) =>
+            c.properties.conditions.some((item) => item.formId == formId)
+          );
+          if (hasFinded) {
+            callback();
+          } else {
+            data.conditionNodes.forEach(
+              (d) => d.childNode && loop(d.childNode, callback)
+            );
+          }
         }
-        data.childNode && loop( data.childNode, callback )
-      }
-      loop( this.data, () => res = true )
-      return res
-    }
+        data.childNode && loop(data.childNode, callback);
+      };
+      loop(this.data, () => (res = true));
+      return res;
+    },
   },
-  render: function(h) {
+  render: function (h) {
     return (
       <div class="flow-container">
         <div class="scale-slider">
@@ -130,7 +134,7 @@ export default {
         />
       </div>
     );
-  }
+  },
 };
 </script>
 
