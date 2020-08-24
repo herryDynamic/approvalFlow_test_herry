@@ -1,5 +1,5 @@
 <script>
-import FlowCard from "./FlowCard/index.vue"; // 制作节点s
+import FlowCard from "./FlowCard/index.vue"; // 制作节点
 import PropPanel from "./PropPanel/index.vue"; // 右侧添加条件
 import { NodeUtils, getMockData } from "./FlowCard/util.js"; // 将模板添加到节点
 
@@ -57,7 +57,7 @@ export default {
       }
     },
     /**
-     * 属性面板提交事件
+     * 属性面板提交事件: 条件分支事件
      * @param { Object } value - 被编辑的节点的properties属性对象
      */
     onPropEditConfirm(value, content) {
@@ -105,6 +105,7 @@ export default {
       return res;
     },
   },
+  // h是createElement别名
   render: function (h) {
     return (
       <div class="flow-container">

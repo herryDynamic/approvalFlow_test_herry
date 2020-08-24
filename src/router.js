@@ -35,6 +35,15 @@ const router = new Router({
             meta: {
                 title: "approver"
             }
+        },
+        {
+            path: "/jsx",
+            name: "jsx",
+            component: () =>
+                import("./views/render/jsx"), // url地址
+            meta: {
+                title: "jsx"
+            }
         }
     ] // (缩写) 相当于 routes: routes
 })
