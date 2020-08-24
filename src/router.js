@@ -3,7 +3,7 @@ import Vue from "vue";
 import Router from "vue-router"
 Vue.use(Router);
 
-
+import Home from "./views/admin/approver.vue"
 
 const router = new Router({
     // base说明：启动后地址http://localhost:8080/lsa#/  和  http://localhost:8080/#/ 都可以
@@ -26,7 +26,13 @@ const router = new Router({
             meta: {
                 title: "test"
             }
-        }
+        },
+
+        {
+            path: '/approver',
+            name: 'approver',
+            component: Home
+        },
     ] // (缩写) 相当于 routes: routes
 })
 
