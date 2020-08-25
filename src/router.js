@@ -44,7 +44,35 @@ const router = new Router({
             meta: {
                 title: "jsx"
             }
+        },
+        {
+            path: "/tem",
+            name: "tem",
+            component: () =>
+                import("./views/render/render_one/tem"), // url地址
+            meta: {
+                title: "tem"
+            }
+        },
+        {
+            path: "/ren",
+            name: "ren",
+            component: () =>
+                import("./views/render/render_one/ren"), // url地址
+            meta: {
+                title: "ren"
+            }
+        },
+        {
+            path: "/tem1.1",
+            name: "tem1.1",
+            component: () =>
+                import("./views/render/render_one/render_1.1/tem1.1"), // url地址
+            meta: {
+                title: "tem1.1"
+            }
         }
+
     ] // (缩写) 相当于 routes: routes
 })
 
