@@ -1,5 +1,5 @@
 <script>
-import { NodeUtils } from "./util.js";
+import { NodeUtils } from "./util.js"; // 引入创建工具
 const isCondition = (data) => data.type === "condition";
 const notEmptyArray = (arr) => Array.isArray(arr) && arr.length > 0;
 const hasBranch = (data) => notEmptyArray(data.conditionNodes);
@@ -9,6 +9,9 @@ function createNormalCard(ctx, conf, h) {
   let isStartNode = conf.type === "start";
   let classString = `flow-path-card ${isStartNode ? "start-node" : ""}`;
   return (
+    // 添加条件按钮下的：每个条件框中的内容及样式
+    // section: 将此内容独立起来
+    // onClick: 打开侧边栏
     <section
       class={classString}
       onClick={this.eventLancher.bind(ctx, "edit", conf)}
@@ -50,6 +53,7 @@ function createNormalCard(ctx, conf, h) {
 
 let nodes = {
   start: function (ctx, data, h) {
+    // call() 方法使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数。 --herry
     return createNormalCard.call(ctx, ctx, data, h);
   },
   approver: function (ctx, data, h) {
@@ -130,6 +134,8 @@ function addNodeButton(ctx, data, h, isBranch = false) {
   if (isEmpty && !isBranch) {
     return "";
   }
+
+  // 点击加号：element弹出框中两个按钮--herry
   return (
     <div class="add-node-btn-box flex  justify-center">
       <div class="add-node-btn">
@@ -174,6 +180,7 @@ function addNodeButton(ctx, data, h, isBranch = false) {
   );
 }
 
+// 节点工厂：添加单个节点--herry
 function NodeFactory(ctx, data, h) {
   if (!data) {
     return;
@@ -183,6 +190,7 @@ function NodeFactory(ctx, data, h) {
   let res = [],
     branchNode = "",
     selfNode = (
+      // 每个节点样式--herry
       <div class="node-wrap">
         <div
           class={`node-wrap-box ${data.type} ${showErrorTip ? "error" : ""}`}
@@ -200,7 +208,7 @@ function NodeFactory(ctx, data, h) {
         </div>
       </div>
     );
-
+  // 选择条件分支后添加条件
   if (hasBranch(data)) {
     // 如果节点是数组 一定为条件分支 添加分支样式包裹
     // {data.childNode && NodeFactory.call(ctx, ctx, data.childNode, h)}
@@ -223,6 +231,7 @@ function NodeFactory(ctx, data, h) {
   }
 
   if (isCondition(data)) {
+    // 添加条件下面的每个条件分支
     return (
       <div class="col-box">
         <div class="center-line"></div>
@@ -240,6 +249,7 @@ function NodeFactory(ctx, data, h) {
   return res;
 }
 
+// 节点最后的结束标识
 function addEndNode(h) {
   return <section class="end-node">流程结束</section>;
 }

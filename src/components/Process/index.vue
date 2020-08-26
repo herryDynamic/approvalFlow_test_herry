@@ -28,7 +28,7 @@ export default {
       }
     },
     /**
-     * 接收所有FlowCard事件触发
+     * 接收所有FlowCard事件触发：侧边栏编辑事件
      * @param { Object } data - 含有event(事件名称)/args(参数)两个属性
      */
     eventReciver({ event, args }) {
@@ -108,6 +108,10 @@ export default {
   // h是createElement别名
   render: function (h) {
     return (
+      // 当前流程设计页面--herry
+      // scale-slider:页面中的放大缩小
+      // FlowCard:页面结构
+      // PropPanel:页面侧边栏
       <div class="flow-container">
         <div class="scale-slider">
           <i
@@ -124,7 +128,7 @@ export default {
           verifyMode={this.verifyMode}
           key={this.updateId}
           data={this.data}
-          onEmits={this.eventReciver}
+          onEmits={this.eventReciver} // 打开侧边栏编辑
           style={{ transform: `scale(${this.scaleVal / 100})` }}
         />
         <PropPanel
