@@ -71,20 +71,20 @@
 export default {
   model: {
     prop: "value",
-    event: "update"
+    event: "update",
   },
   props: ["value", "title"],
   data() {
     let cloneData = JSON.parse(JSON.stringify(this.value || {}));
     cloneData = Object.assign({ type: "gt", value: null }, cloneData);
     return {
-      cloneData
+      cloneData,
     };
   },
   computed: {
     isRange() {
       return this.cloneData.type === "bet";
-    }
+    },
   },
   methods: {
     onTypeChange(newVal) {
@@ -95,8 +95,8 @@ export default {
     },
     update() {
       this.$emit("update", this.cloneData);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="stylus" scoped>

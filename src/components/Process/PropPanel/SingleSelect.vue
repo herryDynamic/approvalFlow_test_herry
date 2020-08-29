@@ -12,7 +12,7 @@
       </el-select>
     </el-col>
     <el-col :span="2" class="icon-wrapper">
-      <i class="el-icon-delete"  @click="$emit('delete')"></i>
+      <i class="el-icon-delete" @click="$emit('delete')"></i>
     </el-col>
   </el-row>
 </template>
@@ -20,12 +20,12 @@
 export default {
   model: {
     prop: "value",
-    event: "update"
+    event: "update",
   },
   props: ["value", "title", "options"],
   data() {
     return {
-      cloneData: this.value
+      cloneData: this.value,
     };
   },
   methods: {
@@ -34,8 +34,8 @@ export default {
     },
     update() {
       this.$emit("update", this.cloneData);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="stylus" scoped>
