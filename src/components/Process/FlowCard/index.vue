@@ -62,6 +62,8 @@ let nodes = {
   empty: function (ctx, data, h) {
     return "";
   },
+
+  // condition下面为条件分支模块组成，方便下面的工厂直接渲染
   condition: function (ctx, conf, h) {
     return (
       <section
@@ -202,6 +204,7 @@ function NodeFactory(ctx, data, h) {
             >
               !!!
             </div>
+            // 文字提示
           </el-tooltip>
           {nodes[data.type].call(ctx, ctx, data, h)}
           {addNodeButton.call(ctx, ctx, data, h)}
