@@ -18,13 +18,13 @@
           @click="changeSteps(item)"
         >
           <!-- 抬头：每个组件名字 -->
-          <span class="step-index">{{index+1}}</span>
+          <!-- <span class="step-index">{{index+1}}</span> -->
           {{item.label}}
         </div>
-        <div
+        <!-- <div
           class="ghost-step step"
           :style="{transform: `translateX(${steps.findIndex(t => t.key === activeStep) * 100}%)`}"
-        ></div>
+        ></div>-->
       </div>
 
       <!-- 发布事件 -->
@@ -33,18 +33,8 @@
 
     <!-- 独立集合：组件库； ref访问到此组件 -->
     <section class="page__content">
-      <!-- 基础设置 -->
-      <BasicSetting
-        v-show="activeStep === 'basicSetting'"
-        tabName="basicSetting"
-        ref="basicSetting"
-      />
-      <!-- 表单设计 -->
-      <DynamicForm v-show="activeStep === 'formDesign'" tabName="formDesign" ref="formDesign" />
       <!-- 流程设计 -->
       <Process v-show="activeStep === 'processDesign'" tabName="processDesign" ref="processDesign" />
-      <!-- 高级设置 -->
-      <AdvancedSetting v-show="activeStep === 'advancedSetting'" ref="advancedSetting" />
     </section>
   </div>
 </template>
@@ -52,9 +42,6 @@
 <script>
 // @ 表示 /src别名
 import Process from "@/components/Process";
-import DynamicForm from "@/components/DynamicForm";
-import BasicSetting from "@/components/BasicSettingForm";
-import AdvancedSetting from "@/components/AdvancedSetting";
 
 const beforeUnload = function (e) {
   var confirmationMessage = "离开网站可能会丢失您编辑得内容";
@@ -74,12 +61,7 @@ export default {
     return {
       activeStep: "basicSetting", // 激活的步骤面板
       // 抬头组件显示内容
-      steps: [
-        { label: "基础设置", key: "basicSetting" },
-        { label: "表单设计", key: "formDesign" },
-        { label: "流程设计", key: "processDesign" },
-        { label: "高级设置", key: "advancedSetting" },
-      ],
+      steps: [{ label: "流程设计", key: "processDesign" }],
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -89,6 +71,10 @@ export default {
   beforeRouteLeave(to, from, next) {
     window.removeEventListener("beforeunload", beforeUnload);
     next();
+  },
+
+  mounted() {
+    this.changeSteps(this.steps[0]); // 启动默认添加当前一个process
   },
   methods: {
     // 控制显示哪个组件页面
@@ -143,9 +129,6 @@ export default {
   },
   components: {
     Process,
-    DynamicForm,
-    BasicSetting,
-    AdvancedSetting,
   },
 };
 </script>

@@ -1,5 +1,6 @@
 
 <template>
+  <!-- 抽屉：右侧弹出 -->
   <el-drawer
     size="550px"
     class="drawer"
